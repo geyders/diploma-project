@@ -6,7 +6,7 @@ info:
     Контракт взаємодії Web SPA з Content Service та Consistency Service через API Gateway (NGINX).
     Асинхронні операції повертають 202 Accepted; результат доставляється через WebSocket
     (Notification Service) та доступний через GET-ендпоінти.
-    Трасування вимог: SRS-FUN-05, SRS-FUN-14, SRS-FUN-15, SRS-NFR-SEC-01..04.
+    Трасування вимог: SRS-FUN-08, SRS-FUN-13, SRS-FUN-16, SRS-NFR-SEC-01..04.
 servers:
   - url: https://novelize.local/api/v1
     description: Локальне розгортання Docker Compose
@@ -71,7 +71,7 @@ paths:
       summary: Запустити перевірку узгодженості книги
       description: |
         Створює consistency_runs зі статусом QUEUED. Перевірка виконується асинхронно
-        (SRS-NFR-PERF-03: p95 не більше 3 с для 1000 вузлів і 5000 зв'язків).
+        (SRS-NFR-PERF-04: p95 < 2 с для графа до 10 000 вершин).
       parameters:
         - $ref: '#/components/parameters/BookId'
       requestBody:

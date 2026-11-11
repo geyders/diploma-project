@@ -109,7 +109,7 @@ C4Container
 | Content Service | NestJS, TypeScript | Профіль, книги, структура, версії фрагментів, Outbox | [SRS-FUN-03](./srs.md#srs-fun-03), [SRS-FUN-04](./srs.md#srs-fun-04), [SRS-FUN-05](./srs.md#srs-fun-05), [SRS-NFR-REL-02](./srs.md#srs-nfr-rel-02) |
 | Entity Service | NestJS, TypeScript | CRUD сутностей і зв'язків твору | [SRS-FUN-06](./srs.md#srs-fun-06), [SRS-FUN-07](./srs.md#srs-fun-07) |
 | Analysis Service | Python, FastAPI, spaCy | Асинхронний аналіз тексту, статистика, embeddings | [SRS-FUN-08](./srs.md#srs-fun-08) … [SRS-FUN-13](./srs.md#srs-fun-13), [SRS-NFR-PERF-02](./srs.md#srs-nfr-perf-02) |
-| Consistency Service | Python, FastAPI | Виявлення суперечностей у графі сутностей | [SRS-FUN-14](./srs.md#srs-fun-14), [SRS-FUN-15](./srs.md#srs-fun-15), [SRS-NFR-PERF-03](./srs.md#srs-nfr-perf-03) |
+| Consistency Service | Python, FastAPI | Виявлення суперечностей у графі сутностей | [SRS-FUN-16](./srs.md#srs-fun-16), [SRS-NFR-PERF-04](./srs.md#srs-nfr-perf-04) |
 | Notification Service | Node.js, WebSocket | Доставка статусів і результатів аналізу в реальному часі | [SRS-FUN-16](./srs.md#srs-fun-16) |
 | LanguageTool Server | Java | Правила орфографії, граматики та пунктуації | [SRS-FUN-08](./srs.md#srs-fun-08), [SRS-FUN-09](./srs.md#srs-fun-09) |
 | Message Broker | Apache Kafka | Асинхронні події між сервісами | [SRS-NFR-REL-02](./srs.md#srs-nfr-rel-02), [SRS-NFR-SCAL-01](./srs.md#srs-nfr-scal-01) |
@@ -135,7 +135,7 @@ C4Container
 
 ## 2.2 Компонентне моделювання критичного сервісу системи (C4 Component)
 
-Обрано **Consistency Service**: сервіс реалізує ключову відмінність системи від аналогів — детерміноване виявлення суперечностей графовими запитами ([SRS-FUN-14](./srs.md#srs-fun-14), [SRS-FUN-15](./srs.md#srs-fun-15)). Вибір сховища обґрунтовано в [ADR-001](./adr/0001-choice-of-technology.md).
+Обрано **Consistency Service**: сервіс реалізує ключову відмінність системи від аналогів — детерміноване виявлення суперечностей графовими запитами ([SRS-FUN-16](./srs.md#srs-fun-16)). Вибір сховища обґрунтовано в [ADR-001](./adr/0001-choice-of-technology.md).
 
 <a id="diagram-level3"></a>
 
@@ -204,17 +204,17 @@ C4Component
 | TelemetryMiddleware | Inbound | Метрики, trace-контекст, структуровані логи (OpenTelemetry) | [SRS-NFR-OBS-01](./srs.md#srs-nfr-obs-01) |
 | JwtAuthGuard | Inbound | Перевірка підпису, строку дії, scope та належності книги авторові (RBAC) | [SRS-NFR-SEC-01](./srs.md#srs-nfr-sec-01) |
 | RequestValidator | Inbound | Валідація вхідних даних (Pydantic DTO) | [SRS-NFR-SEC-04](./srs.md#srs-nfr-sec-04) |
-| ConsistencyController | Inbound | REST-ендпоінти запуску перевірки та читання звіту | [SRS-FUN-14](./srs.md#srs-fun-14), [SRS-FUN-15](./srs.md#srs-fun-15) |
+| ConsistencyController | Inbound | REST-ендпоінти запуску перевірки та читання звіту | [SRS-FUN-16](./srs.md#srs-fun-16) |
 | GlobalExceptionHandler | Inbound | Єдиний формат помилок без витоку внутрішніх деталей | [SRS-NFR-SEC-04](./srs.md#srs-nfr-sec-04) |
 | EntityChangedConsumer | Inbound | Споживач події `entity.changed` | [SRS-NFR-REL-02](./srs.md#srs-nfr-rel-02) |
 | IdempotencyGuard | Application | Відсікання повторної доставки за `event_id` (таблиця `processed_events`) | [SRS-NFR-REL-02](./srs.md#srs-nfr-rel-02) |
-| RunConsistencyCheckUseCase | Application | Оркестрація перевірки книги | [SRS-FUN-14](./srs.md#srs-fun-14), [SRS-FUN-15](./srs.md#srs-fun-15) |
-| RuleRegistry | Domain | Реєстр правил (Strategy) | [SRS-FUN-14](./srs.md#srs-fun-14), [SRS-FUN-15](./srs.md#srs-fun-15) |
-| AttributeContradictionRule | Domain | Суперечності атрибутів персонажа | [SRS-FUN-14](./srs.md#srs-fun-14) |
-| TimelineLocationRule | Domain | Часові та просторові суперечності | [SRS-FUN-15](./srs.md#srs-fun-15) |
-| ReportBuilder | Domain | Формування звіту суперечностей | [SRS-FUN-14](./srs.md#srs-fun-14), [SRS-FUN-15](./srs.md#srs-fun-15) |
+| RunConsistencyCheckUseCase | Application | Оркестрація перевірки книги | [SRS-FUN-16](./srs.md#srs-fun-16) |
+| RuleRegistry | Domain | Реєстр правил (Strategy) | [SRS-FUN-16](./srs.md#srs-fun-16) |
+| AttributeContradictionRule | Domain | Суперечності атрибутів персонажа | [SRS-FUN-16](./srs.md#srs-fun-16) |
+| TimelineLocationRule | Domain | Часові та просторові суперечності | [SRS-FUN-16](./srs.md#srs-fun-16) |
+| ReportBuilder | Domain | Формування звіту суперечностей | [SRS-FUN-16](./srs.md#srs-fun-16) |
 | EntityGraphPort, ReportRepositoryPort | Ports | Інтерфейси (ABC), від яких залежить ядро | [ADR-001](./adr/0001-choice-of-technology.md) |
-| Neo4jGraphRepository | Outbound | Параметризовані Cypher-запити (Bolt), read-only роль | [SRS-NFR-PERF-03](./srs.md#srs-nfr-perf-03), [ADR-001](./adr/0001-choice-of-technology.md) |
+| Neo4jGraphRepository | Outbound | Параметризовані Cypher-запити (Bolt), read-only роль | [SRS-FUN-11](./srs.md#srs-fun-11), [SRS-FUN-12](./srs.md#srs-fun-12), [SRS-FUN-16](./srs.md#srs-fun-16), [SRS-NFR-PERF-04](./srs.md#srs-nfr-perf-04), [ADR-001](./adr/0001-choice-of-technology.md) |
 | PostgresReportRepository | Outbound | Збереження звітів, outbox, `processed_events` (SQLAlchemy) | [SRS-NFR-REL-02](./srs.md#srs-nfr-rel-02) |
 | OutboxPublisher | Outbound | Polling relay: публікація подій `consistency.completed` у Kafka | [SRS-NFR-REL-02](./srs.md#srs-nfr-rel-02) |
 
@@ -222,7 +222,7 @@ C4Component
 
 | Номер | Назва | Статус |
 |---|---|---|
-| [ADR-001](./adr/0001-choice-of-technology.md) | Вибір СУБД для графа сутностей та перевірки узгодженості | Approved |
+| [ADR-001](./adr/0001-choice-of-technology.md) | Вибір брокера повідомлень для асинхронного конвеєра обробки тексту | Approved |
 
 ## 2.4. Проєктування та моделювання баз даних
 
@@ -570,9 +570,9 @@ classDiagram
 | Метод і шлях | Контейнер-виконавець | Успіх | Вимога |
 |---|---|---|---|
 | POST /fragments/{fragmentId}/versions | Content Service | 201 | [SRS-FUN-05](./srs.md#srs-fun-05) |
-| POST /books/{bookId}/consistency-runs | Consistency Service | 202 | [SRS-FUN-14](./srs.md#srs-fun-14), [SRS-FUN-15](./srs.md#srs-fun-15) |
-| GET /books/{bookId}/consistency-runs/{runId} | Consistency Service | 200 | [SRS-FUN-14](./srs.md#srs-fun-14) |
-| GET /books/{bookId}/consistency-runs/{runId}/findings | Consistency Service | 200 | [SRS-FUN-15](./srs.md#srs-fun-15) |
+| POST /books/{bookId}/consistency-runs | Consistency Service | 202 | [SRS-FUN-16](./srs.md#srs-fun-16) |
+| GET /books/{bookId}/consistency-runs/{runId} | Consistency Service | 200 | [SRS-FUN-16](./srs.md#srs-fun-16) |
+| GET /books/{bookId}/consistency-runs/{runId}/findings | Consistency Service | 200 | [SRS-FUN-16](./srs.md#srs-fun-16) |
 
 Авторизація: схема `bearerAuth` (JWT RS256, строк дії не більше 15 хв, [SRS-NFR-SEC-01](./srs.md#srs-nfr-sec-01)). Помилки повертаються у форматі `application/problem+json` (RFC 9457): 400 (валідація), 401, 403, 404, 409 (застаріла `base_version_no` або активна перевірка), 413, 429 із заголовком `Retry-After` ([SRS-NFR-SEC-03](./srs.md#srs-nfr-sec-03)), 500, 503. Перелічені в OpenAPI значення `RunStatus` і `RuleCode` збігаються з ENUM у PostgreSQL (розділ 2.4.1).
 
@@ -732,7 +732,7 @@ graph TD
 | 3 | Коди помилок алгоритму (`GRAPH_UNAVAILABLE`, `TIMEOUT`) не були обмежені ні в API, ні в БД (вільний `varchar`) | Додано `enum` у `ConsistencyRun.error_code` та `CHECK` у `consistency_runs.error_code`; коди аналізу задокументовано в `analysis_runs` |
 | 4 | Зв'язок `text_statistics` з `analysis_runs` було задано як 1 : 1, але рядок існує лише для COMPLETED | Змінено на 1 : 0..1 (`\|\|--o\|`) |
 | 5 | Тип `row_version` у `books` (smallint) відрізнявся від `structure_nodes` (int) | Уніфіковано до int |
-| 6 | Властивість `Attribute.source_node_id` була відсутня, тоді як алгоритм 2.6.1 і [SRS-FUN-14](./srs.md#srs-fun-14) потребують джерела значення атрибута | Властивість додано в схему графа |
+| 6 | Властивість `Attribute.source_node_id` була відсутня, тоді як алгоритм 2.6.1 і [SRS-FUN-16](./srs.md#srs-fun-16) потребують джерела значення атрибута | Властивість додано в схему графа |
 
 **Результати автоматизованих перевірок (скрипт зіставлення артефактів)**
 

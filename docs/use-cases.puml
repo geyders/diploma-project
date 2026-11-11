@@ -1,0 +1,42 @@
+@startuml Novelize_Use_Cases
+left to right direction
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam actorStyle awesome
+
+actor "Автор" as Author
+actor "Редактор" as Editor
+actor "Keycloak\n(Identity Provider)" as IdP
+actor "SMTP Provider" as SMTP
+
+rectangle "Novelize" {
+  usecase "Зареєструвати\nобліковий запис" as UC00
+  usecase "Автентифікуватися\nв системі" as UC01
+  usecase "Зберегти нову\nверсію фрагмента" as UC02
+  usecase "Запустити перевірку\nузгодженості книги" as UC03
+  usecase "Переглянути статус\nперевірки" as UC04
+  usecase "Переглянути перелік\nсуперечностей" as UC05
+  usecase "Переглянути книгу" as UC06
+  usecase "Створити коментар" as UC07
+  usecase "Перевірити права\nдоступу до книги" as AUTHZ
+}
+
+Author --> UC00
+Author --> UC01
+Author --> UC02
+Author --> UC03
+Author --> UC04
+Author --> UC05
+Editor --> UC01
+Editor --> UC06
+Editor --> UC07
+IdP --> UC01
+IdP --> UC00
+SMTP --> UC00
+UC02 .> AUTHZ : <<include>>
+UC03 .> AUTHZ : <<include>>
+UC04 .> AUTHZ : <<include>>
+UC05 .> AUTHZ : <<include>>
+UC06 .> AUTHZ : <<include>>
+UC07 .> AUTHZ : <<include>>
+@enduml

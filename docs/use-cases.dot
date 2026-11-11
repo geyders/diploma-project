@@ -1,0 +1,32 @@
+digraph NovelizeUseCases {
+  graph [rankdir=LR, bgcolor="white", pad="0.25", nodesep="0.35", ranksep="0.8", fontname="Arial", label="Use Case Diagram — Novelize", labelloc=t, fontsize=20];
+  node [fontname="Arial", fontsize=10, color="#344054", penwidth=1.2];
+  edge [fontname="Arial", fontsize=8, color="#475467", arrowsize=0.7];
+  author [shape=plaintext, label="Автор", fontsize=12];
+  editor [shape=plaintext, label="Редактор", fontsize=12];
+  idp [shape=box, style="rounded", label="Keycloak\n(Identity Provider)"];
+  smtp [shape=box, style="rounded", label="SMTP Provider"];
+  subgraph cluster_novelize {
+    label="Novelize"; color="#667085"; penwidth=1.5; style="rounded"; margin=18;
+    UC00 [shape=ellipse, label="Зареєструвати обліковий запис"];
+    UC01 [shape=ellipse, label="Автентифікуватися в системі"];
+    UC02 [shape=ellipse, label="Зберегти нову версію фрагмента"];
+    UC03 [shape=ellipse, label="Запустити перевірку узгодженості книги"];
+    UC04 [shape=ellipse, label="Переглянути статус перевірки"];
+    UC05 [shape=ellipse, label="Переглянути перелік суперечностей"];
+    UC06 [shape=ellipse, label="Переглянути книгу"];
+    UC07 [shape=ellipse, label="Створити коментар"];
+    AUTHZ [shape=ellipse, style="dashed", label="Перевірити права доступу до книги"];
+  }
+  edge [arrowhead=none];
+  author -> UC00; author -> UC01; author -> UC02; author -> UC03; author -> UC04; author -> UC05;
+  editor -> UC01; editor -> UC06; editor -> UC07;
+  idp -> UC00; idp -> UC01; smtp -> UC00;
+  edge [arrowhead=vee, style=dashed];
+  UC02 -> AUTHZ [label="<<include>>"];
+  UC03 -> AUTHZ [label="<<include>>"];
+  UC04 -> AUTHZ [label="<<include>>"];
+  UC05 -> AUTHZ [label="<<include>>"];
+  UC06 -> AUTHZ [label="<<include>>"];
+  UC07 -> AUTHZ [label="<<include>>"];
+}
