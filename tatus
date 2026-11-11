@@ -1,0 +1,29 @@
+[33mcommit 1be302c742f75c5b005e75273dee4c60524afa1f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/chapter2-architecture[m[33m, [m[1;31morigin/feature/chapter2-architecture[m[33m)[m
+Author: Khudenko Yulia <yuliakhudenko6@gmail.com>
+Date:   Wed Oct 28 22:32:21 2026 +0200
+
+    docs: implement ISO 29148 SRS, model C4 levels 1-3 via Mermaid and log ADR-001
+
+[33mcommit 73b018c6bbd3f0fd3f8dc084e673315aedf7ed43[m[33m ([m[1;31morigin/feature/chapter1-final[m[33m, [m[1;32mfeature/chapter1-final[m[33m, [m[1;32mfeature/chapter1-analytics[m[33m)[m
+Author: Khudenko Yulia <yuliakhudenko6@gmail.com>
+Date:   Wed Oct 28 21:04:59 2026 +0200
+
+    docs: finalize chapter 1 with domain analysis, requirements and NFRs
+
+[33mcommit 56cfcd54003b0ea25586c0b995aca79fbbc96b1c[m[33m ([m[1;31morigin/feature/chapter1-analytics[m[33m)[m
+Author: Khudenko Yulia <yuliakhudenko6@gmail.com>
+Date:   Wed Sep 30 21:18:20 2026 +0300
+
+    docs: complete section 1.2 engineering competitive analysis and matrix
+
+[33mcommit be4f9a967102cd00dace283790cbd48e66f848a3[m[33m ([m[1;31morigin/feature/docs-skeleton[m[33m, [m[1;32mfeature/docs-skeleton[m[33m)[m
+Author: Khudenko Yulia <yuliakhudenko6@gmail.com>
+Date:   Wed Sep 30 16:30:06 2026 +0300
+
+    docs: initialize thesis skeleton and add scientific apparatus
+
+[33mcommit a624543c617289fdfe2a4cd4200f60f8dc5f44b8[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: Khudenko Yulia <yuliakhudenko6@gmail.com>
+Date:   Wed Sep 16 21:26:55 2026 +0300
+
+    feat: initialize docs-as-code, add thesis proposal
